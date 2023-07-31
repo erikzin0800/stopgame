@@ -1,0 +1,89 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Jogo de Stop</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    label {
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Jogo de Stop</h1>
+  <div id="game-container">
+    <label for="letter-input">Digite uma letra:</label>
+    <input type="text" id="letter-input">
+    <button onclick="startRound()">Iniciar rodada</button>
+
+    <div id="categories">
+      <label for="name">Nome:</label>
+      <input type="text" id="name">
+      <br>
+      <label for="animal">Animal:</label>
+      <input type="text" id="animal">
+      <br>
+      <label for="fruit">Fruta:</label>
+      <input type="text" id="fruit">
+      <br>
+      <label for="color">Cor:</label>
+      <input type="text" id="color">
+      <br>
+    </div>
+
+    <button onclick="endRound()">Encerrar rodada</button>
+  </div>
+
+  <script>
+    let letter;
+    let roundInProgress = false;
+
+    function startRound() {
+      if (roundInProgress) {
+        alert("A rodada já está em andamento.");
+        return;
+      }
+
+      letter = prompt("Digite uma letra (maiúscula):");
+      if (!letter) return; // Se o jogador clicou em "Cancelar" no prompt
+
+      roundInProgress = true;
+      enableInputs();
+    }
+
+    function endRound() {
+      if (!roundInProgress) {
+        alert("A rodada ainda não começou.");
+        return;
+      }
+
+      roundInProgress = false;
+      disableInputs();
+      showResults();
+    }
+
+    function enableInputs() {
+      const inputs = document.querySelectorAll("#categories input");
+      inputs.forEach(input => input.disabled = false);
+    }
+
+    function disableInputs() {
+      const inputs = document.querySelectorAll("#categories input");
+      inputs.forEach(input => input.disabled = true);
+    }
+
+    function showResults() {
+      const name = document.getElementById("name").value || "-";
+      const animal = document.getElementById("animal").value || "-";
+      const fruit = document.getElementById("fruit").value || "-";
+      const color = document.getElementById("color").value || "-";
+
+      alert(`Resultados:\nNome: ${name}\nAnimal: ${animal}\nFruta: ${fruit}\nCor: ${color}`);
+    }
+  </script>
+</body>
+</html>
